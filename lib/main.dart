@@ -95,9 +95,6 @@ class MapPageState extends State<MapPage> {
   }
 
   void setInitialLocation() async {
-    // set the initial location by pulling the user's
-    // current location from the location's getLocation()
-    currentLocation = await location.getLocation();
 
     // hard-coded destination for this example
     destinationLocation = LocationData.fromMap({
@@ -108,6 +105,9 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    // my map has completed being created;
+    // i'm ready to show the pins on the map
+    showPinsOnMap();
     CameraPosition initialCameraPosition = CameraPosition(
         zoom: CAMERA_ZOOM,
         tilt: CAMERA_TILT,
@@ -137,9 +137,6 @@ class MapPageState extends State<MapPage> {
               onMapCreated: (GoogleMapController controller) {
                 controller.setMapStyle(Utils.mapStyles);
                 _controller.complete(controller);
-                // my map has completed being created;
-                // i'm ready to show the pins on the map
-                showPinsOnMap();
               }),
           MapPinPillComponent(
               pinPillPosition: pinPillPosition,
@@ -149,7 +146,10 @@ class MapPageState extends State<MapPage> {
     );
   }
 
-  void showPinsOnMap() {
+  Future<void> showPinsOnMap() async {
+    // set the initial location by pulling the user's
+    // current location from the location's getLocation()
+    currentLocation = await location.getLocation();
     // get a LatLng for the source location
     // from the LocationData currentLocation object
     var pinPosition =

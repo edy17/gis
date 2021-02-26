@@ -14,9 +14,6 @@ class MapPinPillComponent extends StatefulWidget {
 class MapPinPillComponentState extends State<MapPinPillComponent> {
   @override
   Widget build(BuildContext context) {
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: " + widget.currentlySelectedPin.avatarPath);
-    print("lat: " + widget.currentlySelectedPin.location.latitude.toString());
-    print("long: " + widget.currentlySelectedPin.location.longitude.toString());
     return AnimatedPositioned(
       bottom: widget.pinPillPosition,
       right: 0,
